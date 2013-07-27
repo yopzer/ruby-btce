@@ -277,8 +277,9 @@ module Btce
       end
       
       def nonce
-        @nonce = 0 if @nonce.nil?
+        @nonce ||= File.exists?("btce-nonce") ? File.read("btce-nonce").to_i : 0
         @nonce += 1
+        File.open("btce-nonce", "w") do |f| f.write(@nonce) end
         Time::now.to_i + @nonce
       end
       private :nonce
