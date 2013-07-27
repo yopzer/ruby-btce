@@ -34,7 +34,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'andrewroth-btce'
-  s.version = '0.1.9.1'
+  s.version = '0.1.9.2'
   s.date = '2013-07-26'
   s.summary = "A simple library to interface with the API for btc-e.com in Ruby."
   s.description = "A simple library to interface with the API for btc-e.com in Ruby."
