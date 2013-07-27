@@ -39,6 +39,8 @@ require 'net/https'
 require 'openssl'
 require 'uri'
 require 'yaml'
+require 'cgi'
+
 
 module Btce
   class API
@@ -254,13 +256,13 @@ module Btce
  
     class << self
       def sign(params)
-        # The digest needs to be created.
-        hmac = OpenSSL::HMAC.new(API::KEY['secret'],
-                                 OpenSSL::Digest::SHA512.new)
-        params = params
-          .collect {|k,v| "#{k}=#{v}"}
-          .join('&')
-        signed = hmac.update params
+        data = params.collect do |key, value|
+          "#{key}=#{CGI::escape(value.to_s)}"
+        end.join('&')
+
+        # Sign data with the HMAC SHA-512 algorhythm
+        # Read https://btc-e.com/defines/documentation
+        OpenSSL::HMAC.hexdigest('sha512', API::KEY['secret'], data)
       end
       
       def trade_api_call(method, extra)
@@ -275,10 +277,9 @@ module Btce
       end
       
       def nonce
-        while result = Time.now.to_i and @last_nonce and @last_nonce >= result
-          sleep 1
-        end
-        return @last_nonce = result
+        @nonce = 0 if @nonce.nil?
+        @nonce += 1
+        Time::now.to_i + @nonce
       end
       private :nonce
 
