@@ -265,7 +265,7 @@ module Btce
         OpenSSL::HMAC.hexdigest('sha512', API::KEY['secret'], data)
       end
       
-      def trade_api_call(method, extra)
+      def trade_api_call(method, extra, retries = 4)
         params = {"method" => method, "nonce" => nonce}
         if ! extra.empty?
           extra.each do |k,v|
@@ -273,7 +273,13 @@ module Btce
           end
         end
         signed = sign params
-        get_json "https://#{API::BTCE_DOMAIN}/tapi", params, signed
+        response = get_json "https://#{API::BTCE_DOMAIN}/tapi", params, signed
+        if response.is_a?(Hash) && response["success"] == 0 && response["error"][/invalid nonce parameter/]
+          sleep 1
+          return retries > 0 ? trade_api_call(method, extra, retries - 1) : response
+        else
+          return response
+        end
       end
       
       def nonce
