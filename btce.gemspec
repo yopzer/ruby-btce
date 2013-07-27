@@ -33,13 +33,13 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 Gem::Specification.new do |s|
-  s.name = 'btce'
-  s.version = '0.1.9'
-  s.date = '2013-07-22'
+  s.name = 'andrewroth-btce'
+  s.version = '0.1.9.1'
+  s.date = '2013-07-26'
   s.summary = "A simple library to interface with the API for btc-e.com in Ruby."
   s.description = "A simple library to interface with the API for btc-e.com in Ruby."
-  s.authors = ['Christopher Mark Gore']
-  s.email = 'cgore@cgore.com'
+  s.authors = ['Christopher Mark Gore', 'Andrew Roth']
+  s.email = 'andrewroth@gmail.com'
   s.files = ['lib/btce.rb']
   s.homepage = 'https://github.com/cgore/ruby-btce'
   s.add_dependency 'monkey-patch'
