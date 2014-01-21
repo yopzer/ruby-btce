@@ -1,7 +1,4 @@
-# -*- coding: utf-8 -*-
-# -*- mode: Ruby -*-
-
-# Copyright © 2013, Christopher Mark Gore,
+# Copyright (c) 2013-2014, Christopher Mark Gore,
 # Soli Deo Gloria,
 # All rights reserved.
 #
@@ -13,15 +10,15 @@
 # modification, are permitted provided that the following conditions are met:
 #
 # * Redistributions of source code must retain the above copyright
-#   notice, this list of conditions and the following disclaimer.
+# notice, this list of conditions and the following disclaimer.
 #
 # * Redistributions in binary form must reproduce the above copyright
-#   notice, this list of conditions and the following disclaimer in the
-#   documentation and/or other materials provided with the distribution.
+# notice, this list of conditions and the following disclaimer in the
+# documentation and/or other materials provided with the distribution.
 #
 # * Neither the name of Christopher Mark Gore nor the names of other
-#   contributors may be used to endorse or promote products derived from
-#   this software without specific prior written permission.
+# contributors may be used to endorse or promote products derived from
+# this software without specific prior written permission.
 #
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -35,23 +32,39 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-Gem::Specification.new do |s|
-  s.name = 'btce'
-  s.version = '0.3.0'
-  s.date = '2014-01-04'
-  s.summary = "A simple library to interface with the API for btc-e.com in Ruby."
-  s.description = "A simple library to interface with the API for btc-e.com in Ruby."
-  s.authors = ['Christoph Bünte',
-               'Davide Di Cillo',
-               'Edward Funger',
-               'Christopher Mark Gore',
-               'Stephan Kaag',
-               'Sami Laine',
-               'Selvam Palanimalai',
-               'Jaime Quint',
-               'Michaël Witrant']
-  s.email = 'cgore@cgore.com'
-  s.files = `git ls-files lib/`.split($/)
-  s.homepage = 'https://github.com/cgore/ruby-btce'
-  s.add_dependency 'monkey-patch'
+module Btce
+  class Ticker < PublicOperation
+    def initialize(pair)
+      super 'ticker', pair
+    end
+
+    JSON_METHODS = %w(high low avg vol vol_cur last buy sell updated)
+
+    JSON_METHODS.each do |method|
+      class_eval %{
+        def #{method}
+          json[@pair]["#{method}"] if json[@pair] and json[@pair].is_a? Hash
+        end
+      }
+    end
+
+    alias_method :bid, :buy
+    alias_method :offer, :sell
+
+    alias_method :ask, :sell
+    alias_method :average, :avg
+
+    alias_method :server_time, :updated
+
+    alias_method :volume, :vol
+    alias_method :volume_current, :vol_cur
+
+    def spread
+      (offer - bid) / offer
+    end
+
+    def spread_percent
+      spread * 100.0
+    end
+  end
 end

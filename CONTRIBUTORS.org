@@ -3,6 +3,20 @@
 Thanks to everyone who has helped out with this project.  If we have forgotten
 to add you to this list, please email me at [[mailto:cgore@cgore.com][cgore@cgore.com]].
 
++ Christoph Bünte
+
+  [[http://www.christophbuente.de][www.christophbuente.de]]
+
+  [[https://github.com/christoph-buente][github.com/christoph-buente]]
+
+  [[mailto:info@christophbuente.de][info@christophbuente.de]]
+
++ Davide Di Cillo
+
+  [[https://github.com/davidedicillo][github.com/davidedicillo]]
+
+  [[http://davidedicillo.com][davidedicillo.com]]
+
 + Edward Funger
 
   [[https://github.com/teddythetwig][github.com/teddythetwig]]
@@ -17,6 +31,20 @@ to add you to this list, please email me at [[mailto:cgore@cgore.com][cgore@cgor
 
   [[mailto:cgore@cgore.com][cgore@cgore.com]]
 
++ Stephan Kaag
+
+  [[http://www.bettyblocks.com][www.bettyblocks.com]]
+
+  [[https://github.com/stephankaag][github.com/stephankaag]]
+
++ Sami Laine
+
+  [[https://github.com/samilaine][github.com/samilaine]]
+
++ Selvam Palanimalai
+
+  [[https://github.com/selvam1991][github.com/selvam1991]]
+
 + Jamie Quint
 
   [[http://jamiequint.com][jamiequint.com]]
@@ -24,3 +52,11 @@ to add you to this list, please email me at [[mailto:cgore@cgore.com][cgore@cgor
   [[https://github.com/jamiequint][github.com/jamiequint]]
 
   [[mailto:jamiequint@gmail.com][jamiequint@gmail.com]]
+
++ Michaël Witrant
+
+  [[http://michael.witrant.com/][michael.witrant.com]]
+
+  [[https://github.com/sigmike][github.com/sigmike]]
+
+  [[mailto:mike@lepton.fr][mike@lepton.fr]]
