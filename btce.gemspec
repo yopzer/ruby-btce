@@ -36,8 +36,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 Gem::Specification.new do |s|
-  s.name = 'btce'
-  s.version = '0.3.0'
+  s.name = 'andrewroth-btce'
+  s.version = '0.3.0.1'
   s.date = '2014-01-04'
   s.summary = "A simple library to interface with the API for btc-e.com in Ruby."
   s.description = "A simple library to interface with the API for btc-e.com in Ruby."
