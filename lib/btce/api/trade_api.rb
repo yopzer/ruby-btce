@@ -85,10 +85,14 @@ module Btce
     end
 
     def nonce
-      while result = Time.now.to_i and @last_nonce and @last_nonce >= result
-        sleep 1
+      File.open("btce-nonce", "a+") do |f|
+        f.flock(File::LOCK_EX)
+        @nonce = f.read.to_i
+        @nonce += 1
+        f.truncate(0)
+        f.puts(@nonce)
       end
-      return @last_nonce = result
+      return Time::now.to_i + @nonce
     end
     private :nonce
 
