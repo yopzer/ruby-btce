@@ -52,7 +52,8 @@ module Btce
                     OrderList
                     ActiveOrders
                     Trade
-                    CancelOrder)
+                    CancelOrder
+                    OrderInfo)
 
 
     def initialize(opts={})

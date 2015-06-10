@@ -35,51 +35,13 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 module Btce
-  class PublicAPI < API
-    OPERATIONS = %w(fee ticker trades depth info)
+  class Info < PublicOperation
+    def initialize(pair)
+      super 'info', pair
+    end
 
-    class << self
-      def get_pair_operation_json(pair, operation, options={})
-        list = pair.split('-')
-        i = 0
-        begin
-          raise ArgumentError if not API::CURRENCY_PAIRS.include? list[i]
-          i = i + 1
-        end while i < list.length
-        raise ArgumentError if not OPERATIONS.include? operation
-
-        params = ""
-        if options[:limit]
-          if options[:limit].is_a? Integer
-            if options[:limit] < 1
-              raise ArgumentError, "Limit #{options[:limit]} < 1."
-            else
-              params = "?limit=#{options[:limit]}"
-            end
-          else
-            raise ArgumentError,
-              "Non-Integer limit #{options[:limit].inspect}."
-          end
-        end
-
-        get_json url: "https://#{API::BTCE_DOMAIN}/api/3/#{operation}/#{pair}#{params}"
-      end
-
-      OPERATIONS.each do |operation|
-        class_eval %{
-          def get_pair_#{operation}_json(pair, options={})
-            get_pair_operation_json pair, "#{operation}", options
-          end
-        }
-
-        API::CURRENCY_PAIRS.each do |pair|
-          class_eval %{
-            def get_#{pair}_#{operation}_json(options={})
-              get_pair_#{operation}_json "#{pair}", options
-            end
-          }
-        end
-      end
+    def current
+      json['pairs'][pair]
     end
   end
 end
